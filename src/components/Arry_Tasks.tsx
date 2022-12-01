@@ -1,22 +1,20 @@
-import { useAutoAnimate } from '@formkit/auto-animate/react'
-import useTasksStore from "../stores/tasks"
+import useTasksStore from "../core/tasks"
 
 const Arry_Tasks = () => {
-  const task = useTasksStore(state => state.tasks)
-  const del = useTasksStore(state => state.delTask)
-  const sort = useTasksStore(state => state.sortTask)
-  const [animate] = useAutoAnimate({disrespectUserMotionPreference: true})
+  const {delTask, up,down, tasks} = useTasksStore(state => state)
 
 return (
-  <section className="mt-12" ref={animate as any}>
-    {task.map(({task}) => (
+  <section className="mt-12">
+    {tasks.map(({task}, index:number) => (
     <div className='grid grid-cols-3 items-center gap-4 ' key={Math.random()}>
       <span className="p-2 bg-blue-200 rounded-md col-span-2 text-black flex justify-center my-2">{task}</span>
       <div className="flex gap-1">
-        <button className="btn-accent h-8 w-8 transition-colors rounded-md text-white" type="button"
-        onClick={() => sort()}>⇅</button>
+        <button className="bg-teal-500 hover:bg-teal-600 h-8 w-8 transition-colors rounded-md text-white" type="button"
+        onClick={() => up(index)}>↑</button>
+        <button className="bg-cyan-500 hover:bg-cyan-600 h-8 w-8 transition-colors rounded-md text-white" type="button"
+        onClick={() => down(index)}>↓</button>
          <button className="btn-error h-8 w-8 transition-colors rounded-md text-white" type="button" 
-         onClick={() => del(task)}>x</button>
+         onClick={() => delTask(task)}>x</button>
       </div>
     </div>
     ))}

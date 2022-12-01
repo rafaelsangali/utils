@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Arry_Tasks from './components/Arry_Tasks';
-import useTasksStore from './stores/tasks';
+import useTasksStore from './core/tasks';
 
 const schema = yup.object({
   task: yup.string()
@@ -19,7 +19,6 @@ function App() {
   const task = useTasksStore(state => state.addTask)
   
   const onSubmit = (data: any) => {
-    console.log(data)
     task(data)
   }
   return (
