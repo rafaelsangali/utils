@@ -25,17 +25,6 @@ const useTasksStore = create<Store>((set) => ({
     set(state =>   ({ tasks: state.tasks.filter(({task}) => task !== item)}))
   },
 
-  up:(index:number) => {
-    set(state => {
-      let el = state.tasks[index]
-      if(index !== 0){
-        state.tasks.splice(index, 1)
-        state.tasks.splice(index-1, 0, el)
-        return {tasks: state.tasks}
-      }
-      else { return {tasks: state.tasks}}
-    })
-  },
   down:(index:number) => {
     set(state => {
       let el = state.tasks[index]
@@ -46,7 +35,20 @@ const useTasksStore = create<Store>((set) => ({
       }
       else { return {tasks: state.tasks}}
     })
-  }
+  },
+  
+    up:(index:number) => {
+    set(state => {
+      let el = state.tasks[index]
+      if(index !== 0){
+        state.tasks.splice(index, 1)
+        state.tasks.splice(index-1, 0, el)
+        return {tasks: state.tasks}
+      }
+      else { return {tasks: state.tasks}}
+    })
+  },
+
 }))
 
 export default useTasksStore
