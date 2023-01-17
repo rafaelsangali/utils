@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import Arry_Manipulate from './components/Arry_Manipulate';
 import Arry_Tasks from './components/Arry_Tasks';
 import useTasksStore from './core/tasks';
 
@@ -9,14 +10,14 @@ const schema = yup.object({
   .required('Por favor preencha o campo')
   .min(2, 'Precisa de ter pelo menos 2 caracter')
   .trim(),
-}).required(); 
+}).required();
 
 function App() {
   const { register, handleSubmit, formState:{ errors } } = useForm({
     resolver: yupResolver(schema)
   });
   const task = useTasksStore(state => state.addTask)
-  
+
   const onSubmit = (data: any) => {
     task(data)
   }
@@ -29,6 +30,10 @@ function App() {
       <button className="btn-primary h-8 w-8 transition-colors rounded-md text-white" type="submit">✓</button>
       </form>
       <Arry_Tasks />
+    </section>
+    <section className='flex flex-col gap-5'>
+      <h2>Array Manipulation</h2>
+      <Arry_Manipulate />
     </section>
   </main>
   )
